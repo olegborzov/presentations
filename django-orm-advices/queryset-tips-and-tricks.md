@@ -37,7 +37,7 @@ for article in Article.objects.values('title', 'category__name')[:10]:
 
 При каждой возможности используйте метод QuerySet'a [iterator](https://docs.djangoproject.com/en/1.9/ref/models/querysets/#iterator) в циклах – он позволяет не создавать экземпляры объектов для всех полученных из БД кортежей данных, а только для одного, например:
 
-```
+```python
 # 10 экземпляров Article в памяти
 for article in Article.objects.all()[:10]:
     print article.title
@@ -104,6 +104,7 @@ random_article = Articles.objects.order_by('?').first()
 ```
 
 Проанализируем запрос:
+
 ```
 Limit (actual time=2.508..2.508 rows=1 loops=1)
   ->  Sort (actual time=2.508..2.508 rows=1 loops=1)
@@ -126,6 +127,7 @@ random_id = random.randint(agg_info['min_id'], agg_info['max_id'])
 random_article = Article.objects.filter(id__gte=random_id).first()  # order_by('id')?
 ```
 **Pro**: 3 IndexScan'a, а значит что время получения можно считать константным.
+
 **Contra**: неравномерное распределение, зависит от степени разряженности айдишников.
 
 Для получения случайной выборки можно использовать несколько вариантов, но все они имеют свои ограничения:

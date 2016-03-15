@@ -1,6 +1,6 @@
 # Прочитайте документацию по ORM полностью, а не по диагонали
 
-Самые странные и глупые ошибки при работе с Django-ORM случаются при отсутствии детального понимания его возможностей и принципов работы. Я рекомендую к детальному изучению как минимум два раздела: [описание моделей](https://docs.djangoproject.com/en/1.9/topics/db/models/) и API для работы с [QuerySet'ами](https://docs.djangoproject.com/en/1.9/ref/models/querysets/). 
+Самые странные и глупые ошибки при работе с Django-ORM случаются при отсутствии детального понимания его возможностей и принципов работы. Я рекомендую к детальному изучению как минимум два раздела: [описание моделей](https://docs.djangoproject.com/en/1.9/topics/db/models/) и API для работы с [QuerySet'ами](https://docs.djangoproject.com/en/1.9/ref/models/querysets/).
 
 Глупости, которых можно избежать:
 
@@ -19,6 +19,7 @@ finally:
 ```
 
 ### Проблема N+1 запросов, или зачем нужен **select_related**
+
 ```python
 class Musician(models.Model):
     name = models.CharField(max_length=250)
@@ -39,6 +40,7 @@ for album in Album.objects.select_related('artist'):
 ```
 
 ### **Count** вместо **exists**
+
 ```python
 # Есть ли у нас пользователи с балансом больше 10?
 print(bool(User.objects.filter(balance__gt=10)).count())
@@ -47,7 +49,7 @@ print(User.objects.filter(balance__gt=10).exists())
 ```
 Пример анализа запросов на таблице из ~20'000 элементов:
 
- `EXPLAIN ANALYSE SELECT COUNT(*) FROM "user" WHERE "user"."balance" > 10`
+`EXPLAIN ANALYSE SELECT COUNT(*) FROM "user" WHERE "user"."balance" > 10`
 
 ```
 Aggregate

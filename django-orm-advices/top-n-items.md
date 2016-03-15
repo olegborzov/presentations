@@ -64,7 +64,7 @@ articles_subquery = (
 
 Осталась одна проблема – в Django 1.9 вложенные подзапросы не поддерживаются, поэтому придется воспользоваться методом `raw`:
 
-```
+```python
 N = 5
 articles = Article.objects.raw(
     'SELECT * FROM ({}) AS s WHERE s.row <= %s'.format(articles.query), [n]
@@ -75,6 +75,7 @@ for article in articles:
 ```
 
 Нюансы:
+
 * `raw` возвращает объект `RawQuerySet`, который значительно отличается от `QuerySet` (некоторые методы у него недоступны).
 * нетривиально достать какие-либо поля из таблицы категорий
 
