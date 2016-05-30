@@ -94,7 +94,7 @@ SELECT sa.* FROM
   ) as sa ON TRUE;
 ```
 
-Перевод его в ORM формат делается по аналогии с предыдущим примером.
+Перевод его в ORM формат происходит по аналогии с предыдущим примером.
 
 > Сравнение производительности разных подходов можно посмотреть в этой статье:
 http://charlesleifer.com/blog/querying-the-top-n-objects-per-group-with-peewee-orm/
